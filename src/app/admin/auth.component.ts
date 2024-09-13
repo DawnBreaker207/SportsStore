@@ -19,6 +19,8 @@ export class AuthComponent {
       this.auth
         .authenticate(this.username ?? '', this.password ?? '')
         .subscribe((response) => {
+          console.log(response);
+
           if (response) {
             this.router.navigateByUrl('/admin/main');
           }
