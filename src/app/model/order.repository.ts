@@ -33,15 +33,16 @@ export class OrderRepository {
       this.orders.splice(
         this.orders.findIndex((o) => o.id == order.id),
         1,
-        order
+        order,
       );
     });
   }
+
   deleteOrder(id: number) {
     this.dataSource.deleteOrder(id).subscribe((order) => {
       this.orders.splice(
         this.orders.findIndex((o) => id == o.id),
-        1
+        1,
       );
     });
   }

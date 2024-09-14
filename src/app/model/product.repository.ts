@@ -19,7 +19,7 @@ export class ProductRepository {
   }
   getProducts(category?: string): Product[] {
     return this.products.filter(
-      (p) => category == undefined || category == p.category
+      (p) => category == undefined || category == p.category,
     );
   }
   getProduct(id: number): Product | undefined {
@@ -39,8 +39,8 @@ export class ProductRepository {
         this.products.splice(
           this.products.findIndex((p) => p.id == product.id),
           1,
-          product
-        )
+          product,
+        ),
       );
     }
   }
@@ -49,7 +49,7 @@ export class ProductRepository {
     this.dataSource.deleteProduct(id).subscribe((p) => {
       this.products.splice(
         this.products.findIndex((p) => p.id == id),
-        1
+        1,
       );
     });
   }

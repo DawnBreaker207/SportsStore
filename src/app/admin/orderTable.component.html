@@ -1,4 +1,4 @@
-<mat-checkbox [(ngModel)]="includeShipped">Display Orders </mat-checkbox>
+<mat-checkbox [(ngModel)]="includeShipped">Display Shipped Orders</mat-checkbox>
 
 <table class="orders" mat-table [dataSource]="dataSource">
   <mat-text-column name="name"></mat-text-column>
@@ -8,8 +8,8 @@
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let order">
       <table mat-table [dataSource]="order.cart.lines">
-        <ng-container matColDef="p">
-          <th mat-table-cell *matHeaderCellDef>Product</th>
+        <ng-container matColumnDef="p">
+          <th mat-header-cell *matHeaderCellDef>Product</th>
           <td mat-cell *matCellDef="let line">{{ line.product.name }}</td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="['p']"></tr>
@@ -22,8 +22,8 @@
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let order">
       <table mat-table [dataSource]="order.cart.lines">
-        <ng-container matColDef="q">
-          <th mat-table-cell *matHeaderCellDef>Quantity</th>
+        <ng-container matColumnDef="q">
+          <th mat-header-cell *matHeaderCellDef>Quantity</th>
           <td mat-cell *matCellDef="let line">{{ line.quantity }}</td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="['q']"></tr>
@@ -41,11 +41,11 @@
       <button mat-flat-button color="warn" (click)="delete(o.id)">
         Delete
       </button>
-    </td>
-  </ng-container>
+    </td></ng-container
+  >
 
   <tr mat-header-row *matHeaderRowDef="colsAndRows"></tr>
-  <tr mat-row *matRowHeader="let row; column: colsAndRows"></tr>
+  <tr mat-row *matRowDef="let row; columns: colsAndRows"></tr>
 
   <tr class="mat-row" *matNoDataRow>
     <td class="mat-cell no-data" colspan="4">No orders to display</td>

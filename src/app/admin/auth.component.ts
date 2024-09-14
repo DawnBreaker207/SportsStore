@@ -11,23 +11,23 @@ export class AuthComponent {
   password?: string;
   errorMessage?: string;
 
-  constructor(private router: Router, private auth: AuthService) {}
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+  ) {}
 
   authenticate(form: NgForm) {
     if (form.valid) {
-      // perform authentication
       this.auth
         .authenticate(this.username ?? '', this.password ?? '')
         .subscribe((response) => {
-          console.log(response);
-
           if (response) {
             this.router.navigateByUrl('/admin/main');
           }
           this.errorMessage = 'Authentication Failed';
         });
     } else {
-      this.errorMessage = 'Form Data Invalid ';
+      this.errorMessage = 'Form Data Invalid';
     }
   }
 }

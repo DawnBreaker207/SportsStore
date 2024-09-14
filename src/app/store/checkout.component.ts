@@ -5,13 +5,16 @@ import { NgForm } from '@angular/forms';
 
 @Component({
   templateUrl: 'checkout.component.html',
-  styleUrls: ['checkout.component.ts'],
+  styleUrls: ['checkout.component.css'],
 })
 export class CheckoutComponent {
   orderSent: boolean = false;
   submitted: boolean = false;
 
-  constructor(public repository: OrderRepository, public order: Order) {}
+  constructor(
+    public repository: OrderRepository,
+    public order: Order,
+  ) {}
 
   submitOrder(form: NgForm) {
     this.submitted = true;

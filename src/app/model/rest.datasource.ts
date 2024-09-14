@@ -1,24 +1,27 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Product } from './product.model';
 import { Order } from './order.model';
+import { HttpHeaders } from '@angular/common/http';
 
 const PROTOCOL = 'http';
 const PORT = 3500;
 
 @Injectable()
 export class RestDataSource {
-  baseUrl: string = '';
+  baseUrl: string;
   auth_token?: string;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/`;
+    //this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/`;
+    this.baseUrl = '/api/';
   }
 
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.baseUrl + 'products');
   }
+
   saveOrder(order: Order): Observable<Order> {
     return this.http.post<Order>(this.baseUrl + 'orders', order);
   }
@@ -33,7 +36,7 @@ export class RestDataSource {
         map((response) => {
           this.auth_token = response.success ? response.token : null;
           return response.success;
-        })
+        }),
       );
   }
 
@@ -41,7 +44,7 @@ export class RestDataSource {
     return this.http.post<Product>(
       this.baseUrl + 'products',
       product,
-      this.getOptions()
+      this.getOptions(),
     );
   }
 
@@ -49,15 +52,17 @@ export class RestDataSource {
     return this.http.put<Product>(
       `${this.baseUrl}products/${product.id}`,
       product,
-      this.getOptions()
+      this.getOptions(),
     );
   }
+
   deleteProduct(id: number): Observable<Product> {
-    return this.http.post<Product>(
+    return this.http.delete<Product>(
       `${this.baseUrl}products/${id}`,
-      this.getOptions()
+      this.getOptions(),
     );
   }
+
   getOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(this.baseUrl + 'orders', this.getOptions());
   }
@@ -65,20 +70,22 @@ export class RestDataSource {
   deleteOrder(id: number): Observable<Order> {
     return this.http.delete<Order>(
       `${this.baseUrl}orders/${id}`,
-      this.getOptions()
+      this.getOptions(),
     );
   }
+
   updateOrder(order: Order): Observable<Order> {
     return this.http.put<Order>(
       `${this.baseUrl}orders/${order.id}`,
       order,
-      this.getOptions()
+      this.getOptions(),
     );
   }
+
   private getOptions() {
     return {
       headers: new HttpHeaders({
-        Authorization: `Bear<${this.auth_token}>`,
+        Authorization: `Bearer<${this.auth_token}>`,
       }),
     };
   }
